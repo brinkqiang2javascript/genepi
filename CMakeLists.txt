@@ -90,6 +90,17 @@ configure_package_config_file(
     INSTALL_DESTINATION .
 )
 
+function(add_genepi_example example)
+    add_genepi_library(genepi-${example} "${CMAKE_CURRENT_SOURCE_DIR}/examples/${example}/${example}.cpp")
+endfunction()
+
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/examples)
-    add_subdirectory(examples)
+    add_genepi_example(functions)
+    add_genepi_example(overloaded-functions)
+    add_genepi_example(classes)
+    add_genepi_example(methods)
+    add_genepi_example(overloaded-methods)
+    add_genepi_example(inherit)
+    add_genepi_example(objects)
 endif()
+
