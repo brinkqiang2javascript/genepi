@@ -22,6 +22,12 @@ cmake_minimum_required(VERSION 3.5)
 
 project(genepi)
 
+LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+INCLUDE(cmake/ModuleImport.cmake)
+INCLUDE(cmake/ModuleCompileOptions.cmake)
+ModuleSetCompileOptions()
+ModuleSetWinCompilerFlags()
+
 set(UTILS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake")
 file(READ "${UTILS_FILE}" GENEPI_UTILS)
 include("${UTILS_FILE}")
