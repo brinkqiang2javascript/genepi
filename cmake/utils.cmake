@@ -31,11 +31,7 @@ string(REPLACE "\n" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 
 macro(add_genepi_library target_name)
-    add_library(${target_name} 
-    
-    
-    
-    ${ARGN} ${CMAKE_JS_SRC})
+    add_library(${target_name} SHARED ${ARGN} ${CMAKE_JS_SRC})
     target_include_directories(${target_name}
         PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/include
