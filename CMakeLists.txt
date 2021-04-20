@@ -22,12 +22,12 @@ cmake_minimum_required(VERSION 3.5)
 
 project(genepi)
 
-set(UTILS_FILE "${PROJECT_SOURCE_DIR}/cmake/utils.cmake")
+set(UTILS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake")
 file(READ "${UTILS_FILE}" GENEPI_UTILS)
 include("${UTILS_FILE}")
 
-set(genepi_include_dir "${PROJECT_SOURCE_DIR}/include/genepi")
-set(genepi_source_dir "${PROJECT_SOURCE_DIR}/src/genepi")
+set(genepi_include_dir "${CMAKE_CURRENT_SOURCE_DIR}/include/genepi")
+set(genepi_source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src/genepi")
 add_library(genepi "${genepi_source_dir}/genepi_registry.cpp")
 add_library(genepi::genepi ALIAS genepi)
 set_target_properties(genepi PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -63,7 +63,7 @@ target_sources(genepi
 )
 target_include_directories(genepi
     PUBLIC
-        ${PROJECT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${PROJECT_BINARY_DIR}
     PRIVATE
         ${NODE_ADDON_API_DIR}
@@ -84,6 +84,6 @@ configure_package_config_file(
     INSTALL_DESTINATION .
 )
 
-if(EXISTS ${PROJECT_SOURCE_DIR}/examples)
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/examples)
     add_subdirectory(examples)
 endif()
