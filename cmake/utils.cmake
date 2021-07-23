@@ -35,7 +35,6 @@ macro(add_genepi_library target_name)
     target_include_directories(${target_name}
         PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/include
-            ${PROJECT_BINARY_DIR}
         PRIVATE
             ${NODE_ADDON_API_DIR}
             ${CMAKE_JS_INC}
@@ -50,4 +49,8 @@ macro(add_genepi_library target_name)
             genepi::genepi 
             ${CMAKE_JS_LIB}
     )
+
+    
+    MESSAGE(STATUS "add_genepi_library PROJECT_BINARY_DIR=${PROJECT_BINARY_DIR} target_name=${target_name} CMAKE_JS_SRC=${CMAKE_JS_SRC} CMAKE_JS_INC=${CMAKE_JS_INC} CMAKE_JS_LIB=${CMAKE_JS_LIB})")
+
 endmacro()

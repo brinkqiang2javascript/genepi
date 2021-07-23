@@ -28,9 +28,7 @@ INCLUDE(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
 ModuleSetWinCompilerFlags()
 
-set(UTILS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake")
-file(READ "${UTILS_FILE}" GENEPI_UTILS)
-include("${UTILS_FILE}")
+INCLUDE(cmake/utils.cmake)
 
 set(genepi_include_dir "${CMAKE_CURRENT_SOURCE_DIR}/include/genepi")
 set(genepi_source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src/genepi")
@@ -70,7 +68,6 @@ target_sources(genepi
 target_include_directories(genepi
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${PROJECT_BINARY_DIR}
     PRIVATE
         ${NODE_ADDON_API_DIR}
         ${CMAKE_JS_INC}
@@ -81,7 +78,7 @@ export(TARGETS genepi NAMESPACE genepi:: FILE genepi_target.cmake)
 include(GenerateExportHeader)
 generate_export_header(genepi
     EXPORT_MACRO_NAME genepi_api
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/genepi/genepi_export.h
+    EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/genepi/genepi_export.h
 )
 include(CMakePackageConfigHelpers)
 configure_package_config_file(

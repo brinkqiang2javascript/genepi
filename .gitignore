@@ -14,3 +14,4 @@ CTestTestfile.cmake
 /.vscode/*
 /dist
 /node_modules
+include/genepi/genepi_export.h
