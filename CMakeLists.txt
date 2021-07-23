@@ -88,8 +88,18 @@ configure_package_config_file(
     INSTALL_DESTINATION .
 )
 
+FILE(GLOB SUBDIRS
+  "$<TARGET_FILE_DIR:genepi>/*.node"
+)
+
+ADD_CUSTOM_TARGET(
+    dmnode_config
+    COMMAND ${CMAKE_COMMAND} -E copy_directory $<TARGET_FILE_DIR:genepi> ${CMAKE_CURRENT_SOURCE_DIR}/build
+)
+
 function(add_genepi_example example)
     add_genepi_library(genepi-${example} "${CMAKE_CURRENT_SOURCE_DIR}/examples/${example}/${example}.cpp")
+    ADD_DEPENDENCIES(dmnode_config genepi-${example})
 endfunction()
 
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/examples)
@@ -101,4 +111,3 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/examples)
     add_genepi_example(inherit)
     add_genepi_example(objects)
 endif()
-
