@@ -30,11 +30,12 @@ ModuleSetWinCompilerFlags()
 
 INCLUDE(cmake/utils.cmake)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(genepi_include_dir "${CMAKE_CURRENT_SOURCE_DIR}/include/genepi")
 set(genepi_source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src/genepi")
 add_library(genepi "${genepi_source_dir}/genepi_registry.cpp")
 add_library(genepi::genepi ALIAS genepi)
-set_target_properties(genepi PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 target_sources(genepi
     PRIVATE
         "${genepi_include_dir}/arg_from_napi_value.h"
