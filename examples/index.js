@@ -20,6 +20,10 @@
  * SOFTWARE.
  *
  */
+var classes = require('../bin/Debug/genepi-classes.node')
+var a = new classes.ClassExample();
+var b = new classes.ClassExample(42, 54);
+var c = new classes.ClassExample("ddddddddddd");
 
 require('./functions/functions')
 require('./overloaded-functions/overloaded-functions')

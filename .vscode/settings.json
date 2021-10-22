@@ -7,6 +7,7 @@
     ],
     "C_Cpp.dimInactiveRegions": false,
     "files.associations": {
+        "*.cmake": "cmake",
         "type_traits": "cpp",
         "array": "cpp",
         "functional": "cpp",
@@ -55,6 +56,7 @@
         "random": "cpp",
         "string": "cpp",
         "cinttypes": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "napi.h": "c"
     },
 }
