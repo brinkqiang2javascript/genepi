@@ -28,15 +28,14 @@ INCLUDE(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
 ModuleSetWinCompilerFlags()
 
-set(UTILS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils.cmake")
-file(READ "${UTILS_FILE}" GENEPI_UTILS)
-include("${UTILS_FILE}")
+INCLUDE(cmake/utils.cmake)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(genepi_include_dir "${CMAKE_CURRENT_SOURCE_DIR}/include/genepi")
 set(genepi_source_dir "${CMAKE_CURRENT_SOURCE_DIR}/src/genepi")
 add_library(genepi "${genepi_source_dir}/genepi_registry.cpp")
 add_library(genepi::genepi ALIAS genepi)
-set_target_properties(genepi PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 target_sources(genepi
     PRIVATE
         "${genepi_include_dir}/arg_from_napi_value.h"
@@ -70,7 +69,6 @@ target_sources(genepi
 target_include_directories(genepi
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${PROJECT_BINARY_DIR}
     PRIVATE
         ${NODE_ADDON_API_DIR}
         ${CMAKE_JS_INC}
@@ -81,7 +79,7 @@ export(TARGETS genepi NAMESPACE genepi:: FILE genepi_target.cmake)
 include(GenerateExportHeader)
 generate_export_header(genepi
     EXPORT_MACRO_NAME genepi_api
-    EXPORT_FILE_NAME ${PROJECT_BINARY_DIR}/genepi/genepi_export.h
+    EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/genepi/genepi_export.h
 )
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
@@ -90,8 +88,18 @@ configure_package_config_file(
     INSTALL_DESTINATION .
 )
 
+FILE(GLOB SUBDIRS
+  "$<TARGET_FILE_DIR:genepi>/*.node"
+)
+
+ADD_CUSTOM_TARGET(
+    dmnode_config
+    COMMAND ${CMAKE_COMMAND} -E copy_directory $<TARGET_FILE_DIR:genepi> ${CMAKE_CURRENT_SOURCE_DIR}/build
+)
+
 function(add_genepi_example example)
     add_genepi_library(genepi-${example} "${CMAKE_CURRENT_SOURCE_DIR}/examples/${example}/${example}.cpp")
+    ADD_DEPENDENCIES(dmnode_config genepi-${example})
 endfunction()
 
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/examples)
@@ -103,4 +111,3 @@ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/examples)
     add_genepi_example(inherit)
     add_genepi_example(objects)
 endif()
-
