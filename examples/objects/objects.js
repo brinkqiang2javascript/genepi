@@ -24,6 +24,9 @@
 var objects = require('bindings')('genepi-objects');
 
 var value1 = new objects.Coord(123, 456);
+
+console.log(value1.getX(), value1.getY());
+
 var value2 = objects.ObjectExample.getValue();
 objects.ObjectExample.showByValue(value1);
 objects.ObjectExample.showByValue(value2);

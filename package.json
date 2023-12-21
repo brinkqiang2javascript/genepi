@@ -16,12 +16,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/Geode-solutions/genepi.git"
+        "url": "https://github.com/brinkqiang2javascript/genepi.git"
     },
     "bugs": {
-        "url": "https://github.com/Geode-solutions/genepi/issues"
+        "url": "https://github.com/brinkqiang2javascript/genepi/issues"
     },
-    "homepage": "https://github.com/Geode-solutions/genepi#readme",
+    "homepage": "https://github.com/brinkqiang2javascript/genepi#readme",
     "scripts": {
         "build": "cmake-js compile",
         "build:debug": "cmake-js compile -D",
